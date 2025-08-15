@@ -4,12 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Muhammad Wasif Athar – Interactive Finance Dashboard</title>
+    <meta name="description" content="Interactive portfolio by Muhammad Wasif Athar — real-time market data, projects, and valuation work." />
     <link rel="icon" type="image/png" href="./wasif-athar-high-resolution-logo.png" />
-    <link href="./styles.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="./styles.css" rel="stylesheet" />
   </head>
+
   <body>
-    <header class="app-header">
+    <!-- Header -->
+    <header class="app-header" data-reveal>
       <div class="header-content">
         <img src="./wasif-athar-high-resolution-logo.png" alt="Logo" class="logo" />
         <div>
@@ -18,39 +21,54 @@
         </div>
       </div>
       <nav class="nav-links">
-        <a href="#stock-section">Markets</a>
-        <a href="#projects-section">Projects</a>
-        <a href="#contact-section">Contact</a>
+        <a href="#stock">Markets</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
       </nav>
     </header>
 
-    <main>
-      <section id="hero" class="hero-section">
-        <div class="hero-text">
-          <h2>Interactive Investment Dashboard</h2>
-          <p>Real-time market data, portfolio insights, and selected case studies.</p>
-          <a href="./FA.pdf" target="_blank" class="cta-button">Download CV</a>
+    <!-- Hero -->
+    <section class="hero" data-reveal>
+      <div class="hero-inner">
+        <h2>Interactive Investment Dashboard</h2>
+        <p>Real-time market snapshots, clean visuals, and case studies from my work.</p>
+        <div class="hero-cta">
+          <a class="btn" href="./FA.pdf" target="_blank" rel="noreferrer">Download CV</a>
+          <a class="btn btn-ghost" href="https://www.linkedin.com/in/muhammad-wasif-athar-15a0961b1" target="_blank" rel="noreferrer">LinkedIn</a>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section id="stock-section" class="card">
-        <h2>Live Market Overview</h2>
+    <main>
+      <!-- Live Market Overview -->
+      <section id="stock" class="card" data-reveal>
+        <div class="card-head">
+          <h3>Live Market Overview</h3>
+          <div class="refresh small muted">Auto-refreshes every 60s</div>
+        </div>
         <div id="stock-ticker" class="ticker"><div class="muted">Loading live quotes…</div></div>
       </section>
 
-      <section id="projects-section" class="card">
-        <h2>Highlighted Projects</h2>
+      <!-- Projects -->
+      <section id="projects" class="card" data-reveal>
+        <div class="card-head">
+          <h3>Highlighted Projects</h3>
+          <a class="small muted" href="./projects.json" target="_blank" rel="noreferrer">projects.json</a>
+        </div>
         <div id="projects-grid"></div>
       </section>
 
-      <section id="contact-section" class="card">
-        <h2>Contact</h2>
+      <!-- Contact -->
+      <section id="contact" class="card" data-reveal>
+        <h3>Contact</h3>
         <p>Email: <a href="mailto:wasifathar@gmail.com">wasifathar@gmail.com</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/muhammad-wasif-athar-15a0961b1" target="_blank">/in/muhammad-wasif-athar-15a0961b1</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/muhammad-wasif-athar-15a0961b1" target="_blank" rel="noreferrer">/in/muhammad-wasif-athar-15a0961b1</a></p>
       </section>
     </main>
 
-    <footer><p>© 2025 Muhammad Wasif Athar. All Rights Reserved.</p></footer>
+    <footer>
+      <p>© 2025 Muhammad Wasif Athar. All rights reserved.</p>
+    </footer>
 
     <script src="./script.js"></script>
   </body>
