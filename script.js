@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const profiles = document.querySelectorAll(".profile");
   const yearSpan = document.getElementById("year");
 
-  // Set current year in footer
+  // Footer year
   if (yearSpan) {
     yearSpan.textContent = new Date().getFullYear();
   }
@@ -11,9 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Click on profile
   profiles.forEach(profile => {
     profile.addEventListener("click", () => {
-      // Add fade-out effect
-      gate.style.transition = "opacity 0.7s ease";
+      gate.style.transition = "opacity 0.7s ease, transform 0.7s ease";
       gate.style.opacity = "0";
+      gate.style.transform = "translateY(-20px)";
       setTimeout(() => {
         gate.style.display = "none";
       }, 700);
