@@ -2,19 +2,19 @@
   {
     "title": "L’Oréal 5-Year Forecast",
     "tags": ["Financial Modeling", "DCF", "Excel"],
-    "description": "Built 5-year integrated statements, projected growth, triangulated value with DCF + ratios.",
+    "description": "5-year integrated statements; triangulated value using DCF + ratio sanity checks.",
     "link": "#"
   },
   {
     "title": "AI-Driven Pricing (Internship)",
     "tags": ["AI", "Pricing", "Automation"],
-    "description": "Automated pricing insights and reporting; reduced manual work >10 hrs/week.",
+    "description": "Automated pricing insights and reporting; saved >10 hours/week.",
     "link": "#"
   },
   {
     "title": "PE & VC Notes (Bocconi)",
     "tags": ["Valuation", "Term Sheets", "Funds"],
-    "description": "Fund mechanics, value creation levers, and deal structuring notes.",
+    "description": "Fund mechanics, value creation levers, and deal structuring takeaways.",
     "link": "#"
   }
 ]
