@@ -1,164 +1,60 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Wasif — Portfolio</title>
-  <meta name="description" content="Interactive portfolio of Muhammad Wasif Athar">
-  <link rel="icon" href="assets/logo.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <!-- Profiles Gate -->
-  <div id="gate" class="gate">
-    <div class="gate-inner">
-      <h1 class="gate-title">Who’s browsing?</h1>
-      <div class="profiles">
-        <button class="profile" data-profile="recruiter">
-          <span class="avatar">R</span>
-          <span>Recruiter</span>
-        </button>
-        <button class="profile" data-profile="developer">
-          <span class="avatar">D</span>
-          <span>Developer</span>
-        </button>
-        <button class="profile" data-profile="stalker">
-          <span class="avatar">S</span>
-          <span>Stalker</span>
-        </button>
-        <button class="profile" data-profile="adventurer">
-          <span class="avatar">A</span>
-          <span>Adventurer</span>
-        </button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Muhammad Wasif Athar – Interactive Finance Dashboard</title>
+    <link rel="icon" type="image/png" href="/wasif-athar-high-resolution-logo.png" />
+    <link href="styles.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="header-content">
+        <img src="/wasif-athar-high-resolution-logo.png" alt="Logo" class="logo" />
+        <div>
+          <h1 class="title">Muhammad Wasif Athar</h1>
+          <p class="subtitle">MSc Economics & Finance | CFA Level I Candidate</p>
+        </div>
       </div>
-      <p class="gate-note">Pick a profile to continue</p>
-    </div>
-  </div>
+      <nav class="nav-links">
+        <a href="#stock-section">Markets</a>
+        <a href="#projects-section">Projects</a>
+        <a href="#contact-section">Contact</a>
+      </nav>
+    </header>
 
-  <!-- Main App -->
-  <header class="app-header">
-    <div class="brand">
-      <img src="assets/logo.png" alt="Logo" class="brand-logo">
-      <span class="brand-name">Wasif</span>
-    </div>
-    <nav class="nav">
-      <a href="#home">Home</a>
-      <a href="#projects">Projects</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
-  </header>
-
-  <main id="home" class="hero">
-    <div class="hero-overlay"></div>
-    <div class="hero-content">
-      <h2 class="hero-eyebrow">Top Pick for You</h2>
-      <h1 class="hero-title">Math, Markets & a Bit of Magic</h1>
-      <p class="hero-desc">MSc Economics & Finance · CFA Level I Candidate · Milan</p>
-      <div class="hero-actions">
-        <a class="btn btn-play" href="assets/resume.pdf" target="_blank" rel="noopener">
-          <span class="triangle"></span>
-          Résumé
-        </a>
-        <a class="btn btn-outline" href="#projects">My Projects</a>
-      </div>
-    </div>
-  </main>
-
-  <section id="profiles-quick" class="row">
-    <h3>Choose Your Journey</h3>
-    <div class="chips">
-      <a href="#projects" class="chip">Recruiter View</a>
-      <a href="#about" class="chip">Developer Notes</a>
-      <a href="#contact" class="chip">Let’s Talk</a>
-    </div>
-  </section>
-
-  <section id="projects" class="row">
-    <h3>Featured Projects</h3>
-    <div class="cards">
-      <article class="card">
-        <div class="card-top">
-          <div class="tag">Finance</div>
+    <main>
+      <section id="hero" class="hero-section">
+        <div class="hero-text">
+          <h2>Interactive Investment Dashboard</h2>
+          <p>Real-time market data, portfolio insights, and my latest finance projects — all in one place.</p>
+          <a href="/FA.pdf" target="_blank" class="cta-button">Download CV</a>
         </div>
-        <div class="card-body">
-          <h4>L’Oréal Financial Forecasting</h4>
-          <p>5-year forecast, consolidated statements, margin analysis & growth drivers.</p>
-          <div class="meta"><span>Excel</span><span>Modeling</span></div>
-        </div>
-      </article>
-      <article class="card">
-        <div class="card-top"><div class="tag">Leadership</div></div>
-        <div class="card-body">
-          <h4>Project Green</h4>
-          <p>20 volunteers, sponsorships secured, site cleanup and prep for planting.</p>
-          <div class="meta"><span>Planning</span><span>Operations</span></div>
-        </div>
-      </article>
-      <article class="card">
-        <div class="card-top"><div class="tag">Analytics</div></div>
-        <div class="card-body">
-          <h4>Market Metrics</h4>
-          <p>Dashboarding and risk analysis with Python & SQL.</p>
-          <div class="meta"><span>Python</span><span>SQL</span></div>
-        </div>
-      </article>
-    </div>
-  </section>
+      </section>
 
-  <section id="about" class="row">
-    <h3>About Wasif</h3>
-    <p>I translate numbers into narratives that drive decisions. I like coffee, clean models, and shipping results.</p>
-    <ul class="bullets">
-      <li>Excel · Python · SQL · MATLAB</li>
-      <li>Valuation · Forecasting · Risk</li>
-      <li>GAAP & Reporting · SAP (FICO)</li>
-    </ul>
-  </section>
+      <section id="stock-section" class="card">
+        <h2>Live Market Overview</h2>
+        <div id="stock-ticker" class="ticker"></div>
+      </section>
 
-  <section id="contact" class="row">
-    <h3>Contact</h3>
-    <p>Email: <a href="mailto:wasifathar@gmail.com">wasifathar@gmail.com</a></p>
-  </section>
+      <section id="projects-section" class="card">
+        <h2>Highlighted Projects</h2>
+        <div id="projects-grid"></div>
+      </section>
 
-  <footer class="app-footer">
-    <p>© <span id="year"></span> Muhammad Wasif Athar · Hosted on GitHub Pages</p>
-  </footer>
+      <section id="contact-section" class="card">
+        <h2>Contact</h2>
+        <p>Email: <a href="mailto:wasifathar@gmail.com">wasifathar@gmail.com</a></p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/muhammad-wasif-athar-15a0961b1" target="_blank">/in/muhammad-wasif-athar-15a0961b1</a></p>
+      </section>
+    </main>
 
-  <script src="script.js"></script>
-<script>
-  // Fallback: attach a click handler via event delegation
-  window.addEventListener('load', function () {
-    const gate = document.getElementById('gate');
-    console.log('[Wasif] inline script loaded. gate =', !!gate);
+    <footer>
+      <p>&copy; 2025 Muhammad Wasif Athar. All Rights Reserved.</p>
+    </footer>
 
-    document.addEventListener('click', function (e) {
-      const btn = e.target.closest('.profile');
-      if (!btn || !gate) return;
-
-      console.log('[Wasif] clicked profile:', btn.dataset.profile);
-      gate.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
-      gate.style.opacity = '0';
-      gate.style.transform = 'translateY(-20px)';
-      gate.style.pointerEvents = 'none';
-      setTimeout(() => {
-        gate.remove();
-        // optional: jump per profile
-        const map = {
-          recruiter: '#projects',
-          developer: '#about',
-          stalker: '#home',
-          adventurer: '#contact'
-        };
-        const target = document.querySelector(map[btn.dataset.profile] || '#projects');
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
-      }, 720);
-    }, { passive: true });
-  });
-</script>
-
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
