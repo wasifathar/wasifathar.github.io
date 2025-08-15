@@ -129,5 +129,36 @@
   </footer>
 
   <script src="script.js"></script>
+<script>
+  // Fallback: attach a click handler via event delegation
+  window.addEventListener('load', function () {
+    const gate = document.getElementById('gate');
+    console.log('[Wasif] inline script loaded. gate =', !!gate);
+
+    document.addEventListener('click', function (e) {
+      const btn = e.target.closest('.profile');
+      if (!btn || !gate) return;
+
+      console.log('[Wasif] clicked profile:', btn.dataset.profile);
+      gate.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+      gate.style.opacity = '0';
+      gate.style.transform = 'translateY(-20px)';
+      gate.style.pointerEvents = 'none';
+      setTimeout(() => {
+        gate.remove();
+        // optional: jump per profile
+        const map = {
+          recruiter: '#projects',
+          developer: '#about',
+          stalker: '#home',
+          adventurer: '#contact'
+        };
+        const target = document.querySelector(map[btn.dataset.profile] || '#projects');
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      }, 720);
+    }, { passive: true });
+  });
+</script>
+
 </body>
 </html>
