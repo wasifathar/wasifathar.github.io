@@ -2,20 +2,19 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Muhammad Wasif Athar – Interactive Finance Dashboard</title>
-    <link rel="icon" type="image/png" href="/wasif-athar-high-resolution-logo.png" />
-    <link href="styles.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="./wasif-athar-high-resolution-logo.png" />
+    <link href="./styles.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   </head>
   <body>
     <header class="app-header">
       <div class="header-content">
-        <img src="/wasif-athar-high-resolution-logo.png" alt="Logo" class="logo" />
+        <img src="./wasif-athar-high-resolution-logo.png" alt="Logo" class="logo" />
         <div>
           <h1 class="title">Muhammad Wasif Athar</h1>
-          <p class="subtitle">MSc Economics & Finance | CFA Level I Candidate</p>
+          <p class="subtitle">MSc Economics & Finance · CFA Level I Candidate</p>
         </div>
       </div>
       <nav class="nav-links">
@@ -29,14 +28,16 @@
       <section id="hero" class="hero-section">
         <div class="hero-text">
           <h2>Interactive Investment Dashboard</h2>
-          <p>Real-time market data, portfolio insights, and my latest finance projects — all in one place.</p>
-          <a href="/FA.pdf" target="_blank" class="cta-button">Download CV</a>
+          <p>Real-time market data, portfolio insights, and selected case studies.</p>
+          <a href="./FA.pdf" target="_blank" class="cta-button">Download CV</a>
         </div>
       </section>
 
       <section id="stock-section" class="card">
         <h2>Live Market Overview</h2>
-        <div id="stock-ticker" class="ticker"></div>
+        <div id="stock-ticker" class="ticker">
+          <div class="muted">Loading live quotes…</div>
+        </div>
       </section>
 
       <section id="projects-section" class="card">
@@ -52,9 +53,9 @@
     </main>
 
     <footer>
-      <p>&copy; 2025 Muhammad Wasif Athar. All Rights Reserved.</p>
+      <p>© 2025 Muhammad Wasif Athar. All Rights Reserved.</p>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="./script.js"></script>
   </body>
 </html>
