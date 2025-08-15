@@ -1,75 +1,181 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Muhammad Wasif Athar – Interactive Finance Dashboard</title>
-    <meta name="description" content="Interactive portfolio by Muhammad Wasif Athar — real-time market data, projects, and valuation work." />
-    <link rel="icon" type="image/png" href="./wasif-athar-high-resolution-logo.png" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="./styles.css" rel="stylesheet" />
-  </head>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Muhammad Wasif Athar – Interactive Finance Dashboard</title>
+<meta name="description" content="Interactive portfolio by Muhammad Wasif Athar — real-time market data, projects, and valuation work.">
+<link rel="icon" type="image/png" href="./wasif-athar-high-resolution-logo.png">
 
-  <body>
-    <!-- Header -->
-    <header class="app-header" data-reveal>
-      <div class="header-content">
-        <img src="./wasif-athar-high-resolution-logo.png" alt="Logo" class="logo" />
-        <div>
-          <h1 class="title">Muhammad Wasif Athar</h1>
-          <p class="subtitle">MSc Economics & Finance · CFA Level I Candidate</p>
-        </div>
-      </div>
-      <nav class="nav-links">
-        <a href="#stock">Markets</a>
-        <a href="#projects">Projects</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </header>
+<!-- ============ INLINE CSS (no external file needed) ============ -->
+<style>
+:root{
+  --bg:#0f172a; --panel:#1e293bCC; --ink:#f8fafc; --muted:#94a3b8;
+  --accent:#38bdf8; --accent-2:#0ea5e9; --up:#22c55e; --down:#ef4444;
+}
+*{box-sizing:border-box} html,body{margin:0;padding:0;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+a{color:var(--accent);text-decoration:none} a:hover{text-decoration:underline}
+.app-header{position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:1rem 2rem;background:linear-gradient(90deg,rgba(15,23,42,.95),rgba(15,118,110,.95));backdrop-filter:blur(10px);border-bottom:1px solid #ffffff1a}
+.header-content{display:flex;align-items:center;gap:1rem}
+.logo{width:56px;height:56px;border-radius:10px;object-fit:cover;box-shadow:0 4px 14px #00000040;transition:.3s}
+.logo:hover{transform:rotate(4deg) scale(1.05)}
+.title{margin:0;font-weight:700;font-size:1.6rem}
+.subtitle{margin:.2rem 0 0;color:var(--muted);font-size:.95rem}
+.nav-links a{margin-left:1rem;font-weight:600;color:#e5f3ff} .nav-links a:hover{color:#fff}
+.hero{min-height:64vh;display:grid;place-items:center;background:
+  radial-gradient(1200px 600px at 10% 10%, #0f766e 0, transparent 60%),
+  radial-gradient(1200px 600px at 90% 0%, #1e40af 0, transparent 60%)}
+.hero-inner{text-align:center;max-width:820px;padding:3rem 1rem}
+.hero h2{font-size:2.6rem;margin:0 0 .75rem}
+.hero p{color:#cbd5e1;margin:0 auto 1.2rem}
+.hero-cta{display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap}
+.btn{display:inline-block;padding:.85rem 1.4rem;border-radius:9999px;font-weight:700;background:var(--accent);color:#062231;box-shadow:0 6px 20px rgba(56,189,248,.35);transition:transform .15s,box-shadow .25s,background .2s}
+.btn:hover{background:var(--accent-2);transform:translateY(-2px)} .btn-ghost{background:transparent;color:var(--ink);border:1px solid #ffffff2a;box-shadow:none} .btn-ghost:hover{background:#ffffff12}
+main{padding:2rem 1rem 3rem}
+.card{background:var(--panel);border:1px solid #ffffff1a;border-radius:16px;padding:1.25rem 1.1rem;max-width:1100px;margin:1.5rem auto;box-shadow:0 8px 32px #00000033}
+.card-head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem}
+h3{margin:.2rem 0 1rem;font-size:1.45rem} .small{font-size:.9rem} .muted{color:var(--muted)}
+.ticker{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:.8rem;margin-top:1rem}
+.stock-item{display:flex;justify-content:space-between;align-items:baseline;padding:.8rem .9rem;border-radius:12px;background:rgba(2,6,23,.55);border:1px solid #94a3b81a;transition:transform .15s,box-shadow .2s}
+.stock-item:hover{transform:translateY(-3px);box-shadow:0 8px 20px #00000030}
+.stock-item .symbol{font-weight:700} .stock-item .price{font-weight:700} .stock-item .change{font-size:.95rem}
+.stock-item.positive .change{color:var(--up)} .stock-item.negative .change{color:var(--down)}
+#projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:1rem}
+.project-card{background:#0b1222ed;border:1px solid #94a3b81a;border-radius:12px;padding:1rem;transition:transform .15s,box-shadow .2s}
+.project-card:hover{transform:translateY(-4px) scale(1.01);box-shadow:0 10px 24px #00000035}
+.tags{margin-top:.5rem}
+.tag{display:inline-block;margin:.25rem .3rem 0 0;padding:.22rem .55rem;font-size:.75rem;background:rgba(56,189,248,.15);border:1px solid rgba(56,189,248,.35);border-radius:9999px}
+footer{text-align:center;color:var(--muted);border-top:1px solid #ffffff1a;padding:1.2rem}
+</style>
 
-    <!-- Hero -->
-    <section class="hero" data-reveal>
-      <div class="hero-inner">
-        <h2>Interactive Investment Dashboard</h2>
-        <p>Real-time market snapshots, clean visuals, and case studies from my work.</p>
-        <div class="hero-cta">
-          <a class="btn" href="./FA.pdf" target="_blank" rel="noreferrer">Download CV</a>
-          <a class="btn btn-ghost" href="https://www.linkedin.com/in/muhammad-wasif-athar-15a0961b1" target="_blank" rel="noreferrer">LinkedIn</a>
-        </div>
+<!-- Fallback font (hosted by Google) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <header class="app-header">
+    <div class="header-content">
+      <img class="logo" src="./wasif-athar-high-resolution-logo.png" alt="Logo">
+      <div>
+        <h1 class="title">Muhammad Wasif Athar</h1>
+        <p class="subtitle">MSc Economics & Finance · CFA Level I Candidate</p>
       </div>
+    </div>
+    <nav class="nav-links">
+      <a href="#stock">Markets</a>
+      <a href="#projects">Projects</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h2>Interactive Investment Dashboard</h2>
+      <p>Real-time market snapshots, clean visuals, and case studies from my work.</p>
+      <div class="hero-cta">
+        <a class="btn" href="./FA.pdf" target="_blank" rel="noreferrer">Download CV</a>
+        <a class="btn btn-ghost" href="https://www.linkedin.com/in/muhammad-wasif-athar-15a0961b1" target="_blank" rel="noreferrer">LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <main>
+    <section id="stock" class="card">
+      <div class="card-head">
+        <h3>Live Market Overview</h3>
+        <div class="small muted">Auto-refreshes every 60s</div>
+      </div>
+      <div id="stock-ticker" class="ticker"><div class="muted">Loading live quotes…</div></div>
     </section>
 
-    <main>
-      <!-- Live Market Overview -->
-      <section id="stock" class="card" data-reveal>
-        <div class="card-head">
-          <h3>Live Market Overview</h3>
-          <div class="refresh small muted">Auto-refreshes every 60s</div>
-        </div>
-        <div id="stock-ticker" class="ticker"><div class="muted">Loading live quotes…</div></div>
-      </section>
+    <section id="projects" class="card">
+      <div class="card-head">
+        <h3>Highlighted Projects</h3>
+        <a class="small muted" href="./projects.json" target="_blank" rel="noreferrer">projects.json</a>
+      </div>
+      <div id="projects-grid"></div>
+    </section>
 
-      <!-- Projects -->
-      <section id="projects" class="card" data-reveal>
-        <div class="card-head">
-          <h3>Highlighted Projects</h3>
-          <a class="small muted" href="./projects.json" target="_blank" rel="noreferrer">projects.json</a>
-        </div>
-        <div id="projects-grid"></div>
-      </section>
+    <section id="contact" class="card">
+      <h3>Contact</h3>
+      <p>Email: <a href="mailto:wasifathar@gmail.com">wasifathar@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://www.linkedin.com/in/muhammad-wasif-athar-15a0961b1" target="_blank" rel="noreferrer">/in/muhammad-wasif-athar-15a0961b1</a></p>
+    </section>
+  </main>
 
-      <!-- Contact -->
-      <section id="contact" class="card" data-reveal>
-        <h3>Contact</h3>
-        <p>Email: <a href="mailto:wasifathar@gmail.com">wasifathar@gmail.com</a></p>
-        <p>LinkedIn: <a href="https://www.linkedin.com/in/muhammad-wasif-athar-15a0961b1" target="_blank" rel="noreferrer">/in/muhammad-wasif-athar-15a0961b1</a></p>
-      </section>
-    </main>
+  <footer><p>© 2025 Muhammad Wasif Athar. All rights reserved.</p></footer>
 
-    <footer>
-      <p>© 2025 Muhammad Wasif Athar. All rights reserved.</p>
-    </footer>
+<!-- ============ INLINE JS (no external file needed) ============ -->
+<script>
+const PROJECTS = [
+  { title:"L’Oréal 5-Year Forecast", tags:["Financial Modeling","DCF","Excel"],
+    description:"Built 5-year integrated statements, projected growth, triangulated value with DCF + ratio checks.", link:"#"},
+  { title:"AI-Driven Pricing (Internship)", tags:["AI","Pricing","Automation"],
+    description:"Automated pricing insights and reporting; reduced manual work by 10+ hours/week.", link:"#"},
+  { title:"Bocconi — PE & VC Notes", tags:["Valuation","Term Sheets","Funds"],
+    description:"Fund mechanics, value creation levers, and deal structuring takeaways distilled from coursework.", link:"#"},
+  { title:"Wharton — Business & Financial Modeling", tags:["Scenarios","Risk","Decision Analytics"],
+    description:"Risk-aware spreadsheet models; capstone focused on scenario design and decision analysis.", link:"#"}
+];
 
-    <script src="./script.js"></script>
-  </body>
+// -------- Projects ----------
+(function renderProjects(){
+  const grid = document.getElementById("projects-grid");
+  grid.innerHTML = PROJECTS.map(p => `
+    <div class="project-card">
+      <h4 style="margin:.2rem 0 .4rem;font-size:1.05rem">${p.title}</h4>
+      <p class="muted" style="margin:.25rem 0 0.6rem">${p.description || ""}</p>
+      <div class="tags">${(p.tags||[]).map(t=>`<span class="tag">${t}</span>`).join("")}</div>
+      ${p.link ? `<a class="btn btn-ghost" style="margin-top:.7rem;display:inline-block" target="_blank" rel="noreferrer" href="${p.link}">Open</a>` : ""}
+    </div>
+  `).join("");
+})();
+
+// -------- Live Stocks (CORS-safe fallbacks) ----------
+const SYMBOLS = ["AAPL","MSFT","GOOG","AMZN","TSLA","JPM"];
+const safeJSON = (t)=>{ try { return JSON.parse(t); } catch { return null; } };
+
+async function fetchStocks(symbols){
+  const y = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols.join(",")}`;
+  const tries = [
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(y)}`,
+    `https://r.jina.ai/https/query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols.join(",")}`,
+    `https://r.jina.ai/http/query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols.join(",")}`,
+    y
+  ];
+  for(const url of tries){
+    try{
+      const r = await fetch(url,{cache:"no-store"});
+      if(!r.ok) throw new Error("HTTP "+r.status);
+      const txt = await r.text();
+      const d = safeJSON(txt);
+      const res = d?.quoteResponse?.result;
+      if(Array.isArray(res)) return res;
+      console.warn("Unexpected Yahoo response", url, d ?? txt.slice(0,200));
+    }catch(e){ console.warn("Fetch failed:", url, e.message); }
+  }
+  return [];
+}
+
+async function renderTicker(){
+  const el = document.getElementById("stock-ticker");
+  el.innerHTML = `<div class="muted">Loading live quotes…</div>`;
+  const list = await fetchStocks(SYMBOLS);
+  if(!list.length){ el.innerHTML = `<div class="muted">Couldn’t load quotes (CORS/network). Check console.</div>`; return; }
+  el.innerHTML = list.map(s=>{
+    const p = Number(s.regularMarketPrice ?? 0);
+    const ch = Number(s.regularMarketChange ?? 0);
+    const chp = Number(s.regularMarketChangePercent ?? 0);
+    const cls = ch >= 0 ? "positive" : "negative";
+    return `<div class="stock-item ${cls}">
+      <span class="symbol">${s.symbol}</span>
+      <span class="price">${p.toFixed(2)}</span>
+      <span class="change">${ch.toFixed(2)} (${chp.toFixed(2)}%)</span>
+    </div>`;
+  }).join("");
+}
+renderTicker();
+setInterval(renderTicker, 60000);
+</script>
+</body>
 </html>
