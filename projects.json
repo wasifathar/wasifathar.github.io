@@ -2,7 +2,7 @@
   {
     "title": "L’Oréal 5-Year Forecast",
     "tags": ["Financial Modeling", "DCF", "Excel"],
-    "description": "Built 5-year integrated statements, projected growth, and triangulated value with DCF + ratio checks.",
+    "description": "Built 5-year integrated statements and triangulated value with DCF + ratio sanity checks.",
     "link": "#"
   },
   {
@@ -12,9 +12,9 @@
     "link": "#"
   },
   {
-    "title": "Bocconi — PE & VC Notes",
+    "title": "Bocconi — Private Equity & Venture Capital",
     "tags": ["Valuation", "Term Sheets", "Funds"],
-    "description": "Fund mechanics, value creation levers, and deal structuring takeaways distilled from coursework.",
+    "description": "Notes on fund mechanics, value creation levers, and deal structuring from coursework.",
     "link": "#"
   },
   {
