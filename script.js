@@ -1,13 +1,22 @@
-// Theme toggle + year
-(function(){
-  const root = document.documentElement;
-  const key = 'theme';
-  const saved = localStorage.getItem(key);
-  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-  if(saved === 'light' || (!saved && prefersLight)){ root.classList.add('light'); }
-  document.getElementById('themeToggle').addEventListener('click', () => {
-    root.classList.toggle('light');
-    localStorage.setItem(key, root.classList.contains('light') ? 'light' : 'dark');
+document.addEventListener("DOMContentLoaded", () => {
+  const gate = document.getElementById("gate");
+  const profiles = document.querySelectorAll(".profile");
+  const yearSpan = document.getElementById("year");
+
+  // Set current year in footer
+  if (yearSpan) {
+    yearSpan.textContent = new Date().getFullYear();
+  }
+
+  // Click on profile
+  profiles.forEach(profile => {
+    profile.addEventListener("click", () => {
+      // Add fade-out effect
+      gate.style.transition = "opacity 0.7s ease";
+      gate.style.opacity = "0";
+      setTimeout(() => {
+        gate.style.display = "none";
+      }, 700);
+    });
   });
-  document.getElementById('year').textContent = new Date().getFullYear();
-})();
+});
