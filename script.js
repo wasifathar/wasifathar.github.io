@@ -1,37 +1,33 @@
-// script.js - Modern Interactive Finance Dashboard (GitHub Pages friendly)
+// script.js — GitHub Pages–friendly
 
-// ---- Yahoo fetch (CORS safe via r.jina.ai passthrough) -----------------
+// --- Yahoo Finance via CORS-safe passthrough (read-only proxy) ---
 async function fetchStockData(symbols) {
-  const yUrl = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols.join(",")}`;
-  const corsSafe = `https://r.jina.ai/http://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols.join(",")}`;
+  const base = "http://query1.finance.yahoo.com/v7/finance/quote?symbols=" + symbols.join(",");
+  const cors = "https://r.jina.ai/http/" + encodeURIComponent(base);  // returns JSON transparently
   try {
-    // use the CORS-safe proxy (static read-through). It returns JSON text directly.
-    const res = await fetch(corsSafe, { cache: "no-store" });
-    const data = await res.json(); // r.jina.ai forwards JSON
-    return (data && data.quoteResponse && data.quoteResponse.result) ? data.quoteResponse.result : [];
+    const res = await fetch(cors, { cache: "no-store" });
+    if (!res.ok) throw new Error(`Yahoo proxy HTTP ${res.status}`);
+    const data = await res.json();
+    const out = (data && data.quoteResponse && data.quoteResponse.result) ? data.quoteResponse.result : [];
+    if (!out.length) console.warn("Yahoo returned no results:", data);
+    return out;
   } catch (e) {
-    console.error("Yahoo fetch failed, trying direct (may be blocked by CORS):", e);
-    try {
-      const res2 = await fetch(yUrl, { cache: "no-store" });
-      const data2 = await res2.json();
-      return (data2 && data2.quoteResponse && data2.quoteResponse.result) ? data2.quoteResponse.result : [];
-    } catch (e2) {
-      console.error("Direct Yahoo fetch failed:", e2);
-      return [];
-    }
+    console.error("CORS-safe Yahoo fetch failed:", e);
+    return [];
   }
 }
 
-// ---- Render ticker ------------------------------------------------------
+// --- Render ticker ---
 async function renderStockTicker() {
   const el = document.getElementById("stock-ticker");
   if (!el) return;
+  el.innerHTML = `<div class="muted">Loading live quotes…</div>`;
 
   const symbols = ["AAPL","MSFT","GOOG","AMZN","TSLA","JPM"];
   const stocks = await fetchStockData(symbols);
 
   if (!stocks.length) {
-    el.innerHTML = `<div class="muted">Couldn’t load quotes right now. Please refresh.</div>`;
+    el.innerHTML = `<div class="muted">Couldn’t load quotes. Check console for details.</div>`;
     return;
   }
 
@@ -49,14 +45,14 @@ async function renderStockTicker() {
   }).join("");
 }
 
-// ---- Load projects (relative path) --------------------------------------
+// --- Load projects.json (must sit next to index.html) ---
 async function loadProjects() {
   const grid = document.getElementById("projects-grid");
   if (!grid) return;
 
   try {
     const res = await fetch("./projects.json", { cache: "no-store" });
-    if (!res.ok) throw new Error(res.statusText);
+    if (!res.ok) throw new Error(`projects.json HTTP ${res.status}`);
     const projects = await res.json();
 
     if (!projects.length) {
@@ -68,24 +64,20 @@ async function loadProjects() {
       <div class="project-card">
         <h3>${p.title}</h3>
         <p>${p.description || ""}</p>
-        <div class="tags">
-          ${(p.tags || []).map(t => `<span class="tag">${t}</span>`).join("")}
-        </div>
+        <div class="tags">${(p.tags || []).map(t => `<span class="tag">${t}</span>`).join("")}</div>
         ${p.link ? `<a href="${p.link}" target="_blank" class="cta-button" style="margin-top:.6rem;display:inline-block">View Project</a>` : ""}
       </div>
     `).join("");
   } catch (err) {
-    console.error("projects.json not found / invalid:", err);
-    grid.innerHTML = `<div class="muted">Couldn’t read <code>projects.json</code>. Make sure it sits next to <code>index.html</code>.</div>`;
+    console.error(err);
+    grid.innerHTML = `<div class="muted">Couldn’t read <code>projects.json</code>. Ensure it’s at <code>./projects.json</code>.</div>`;
   }
 }
 
-// ---- Init ---------------------------------------------------------------
+// --- Init ---
 function init() {
   renderStockTicker();
   loadProjects();
-  // refresh stocks every 60s
   setInterval(renderStockTicker, 60000);
 }
-
 document.addEventListener("DOMContentLoaded", init);
