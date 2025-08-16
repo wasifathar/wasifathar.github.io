@@ -46,28 +46,37 @@ function runIntro() {
     fadeIn(welcome);
   });
 
-  // Enter → fade welcome, then show site
-  document.addEventListener("click", async (e) => {
-    const btn = e.target.closest("#enterSite");
-    if (!btn) return;
-    localStorage.setItem("seenIntro", "1");
-    await fadeOutAndHide(welcome);
-    showSite();
-  }, { passive: true });
+// Enter → instantly hide welcome and show site
+document.addEventListener("click", (e) => {
+  const btn = e.target.closest("#enterSite");
+  if (!btn) return;
 
-  if (seen) {
-    // Skip intro/welcome entirely
-    intro?.classList.add("hidden");
-    welcome?.classList.add("hidden");
-    showSite();
-    return;
+  localStorage.setItem("seenIntro", "1");
+
+  // instantly hide welcome so it can't block clicks
+  const welcome = document.getElementById("welcome");
+  if (welcome) {
+    welcome.classList.add("hidden");
+    welcome.style.display = "none";
   }
 
-  // Auto progress intro → welcome
-  setTimeout(async () => {
-    await fadeOutAndHide(intro);
-    fadeIn(welcome);
-  }, 3600);
+  // now reveal the site
+  showSite();
+}, { passive: true });
+
+if (seen) {
+  // Skip intro/welcome entirely
+  intro?.classList.add("hidden");
+  welcome?.classList.add("hidden");
+  showSite();
+  return;
+}
+
+// Auto progress intro → welcome
+setTimeout(async () => {
+  await fadeOutAndHide(intro);
+  fadeIn(welcome);
+}, 3600);
 }
 
 // ---------- Live stock quotes ----------
