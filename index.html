@@ -3,148 +3,77 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Muhammad Wasif Athar – Portfolio</title>
-  <meta name="description" content="Math, Markets, and a Bit of Magic — portfolio by Muhammad Wasif Athar."/>
+  <title>Wasif Athar – Fiori Dashboard</title>
+  <meta name="description" content="SAP Fiori–style portfolio by Muhammad Wasif Athar: live markets, projects, experience, and credentials."/>
   <link rel="icon" type="image/png" href="./wasif-athar-high-resolution-logo.png"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=5">
+  <link rel="stylesheet" href="./styles.css?v=6">
 </head>
 <body>
 
-  <!-- 0) Cinematic intro -->
-  <div id="intro" class="intro">
-    <div class="intro-layer intro-1"><span>Math</span></div>
-    <div class="intro-layer intro-2"><span>Markets</span></div>
-    <div class="intro-layer intro-3"><span>…and a bit of Magic</span></div>
-    <button id="skipIntro" class="btn btn-ghost intro-skip" aria-label="Skip intro">Skip ↦</button>
-  </div>
-
-  <!-- 1) Welcome card -->
-  <section id="welcome" class="welcome hidden">
-    <img src="./wasif-athar-high-resolution-logo.png" alt="Logo" class="welcome-logo"/>
-    <div class="welcome-text">
-      <h1>Welcome</h1>
-      <p>Muhammad Wasif Athar</p>
-      <p class="muted">MSc Economics &amp; Finance · CFA Level I Candidate · Financial Analyst</p>
-    </div>
-    <button id="enterSite" class="btn">Enter</button>
-  </section>
-
-  <!-- 2) Stage A: photo + intro (click anywhere to continue) -->
-  <section id="stageA" class="stageA hidden">
-    <div class="stageA-inner">
-      <div class="stageA-left slide-in-left">
-        <h2>Hi, I’m Wasif.</h2>
-        <p class="lead">
-          Quant-curious finance pro who turns messy data into investment insight.<br>
-          Focus: valuation, portfolio reporting, and ML-assisted analytics.
-        </p>
-        <ul class="bullets">
-          <li>MSc Economics &amp; Finance (Pisa)</li>
-          <li>CFA Level I Candidate</li>
-          <li>Financial Modeling · Python · Excel · Power BI</li>
-        </ul>
-        <p class="muted small">Click anywhere to continue ↓</p>
-      </div>
-      <div class="stageA-right slide-in-right">
-        <img src="./wasif-grad.jpg" alt="Muhammad Wasif Athar" class="stageA-photo">
+  <!-- App Shell -->
+  <header class="topbar">
+    <div class="brand">
+      <img src="./wasif-athar-high-resolution-logo.png" alt="Logo" class="brand-logo">
+      <div class="brand-txt">
+        <div class="brand-title">Wasif Athar</div>
+        <div class="brand-sub">MSc Economics & Finance · CFA L1 · Financial Analyst</div>
       </div>
     </div>
-  </section>
 
-  <!-- 3) Stage B: Section chooser -->
-  <section id="stageB" class="stageB hidden">
-    <h2 class="center">Explore</h2>
-    <div class="tile-grid">
-      <button class="tile" data-open="personal">Personal Information</button>
-      <button class="tile" data-open="experience">Work Experience</button>
-      <button class="tile" data-open="education">Education</button>
-      <button class="tile" data-open="projects">Projects</button>
-      <button class="tile" data-open="publications">Publications</button>
-      <button class="tile" data-open="certificates">Certificates</button>
-      <button class="tile" data-open="recommendations">Recommendations</button>
+    <div class="search-wrap">
+      <input id="globalSearch" class="search" placeholder="Search modules, items… ( / )" aria-label="Search">
     </div>
-    <div class="center" style="margin-top:1rem">
-      <button id="goToSite" class="btn btn-ghost">Skip to Dashboard →</button>
-    </div>
-  </section>
 
-  <!-- 4) Detail overlay -->
-  <div id="detailOverlay" class="detail-overlay hidden" aria-hidden="true">
-    <div class="detail-card">
-      <div class="detail-head">
-        <h3 id="detailTitle">Section</h3>
-        <button id="closeDetail" class="btn btn-ghost">&larr; Back</button>
-      </div>
-      <div id="detailBody" class="detail-body">
-        <!-- filled by JS -->
-      </div>
+    <div class="actions">
+      <a class="btn btn-ghost" href="./FA.pdf" target="_blank" rel="noreferrer">CV</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/muhammad-wasif-athar-15a0961b1" target="_blank" rel="noreferrer">LinkedIn</a>
     </div>
-  </div>
-
-  <!-- 5) Main site -->
-  <header class="app-header hidden" id="siteHeader">
-    <div class="header-content">
-      <img class="logo" src="./wasif-athar-high-resolution-logo.png" alt="Logo"/>
-      <div>
-        <h1 class="title">Muhammad Wasif Athar</h1>
-        <p class="subtitle">
-          Math, Markets, and a Bit of Magic<br>
-          <span class="subline">MSc Economics &amp; Finance · CFA Level I Candidate · Financial Analyst</span>
-        </p>
-      </div>
-    </div>
-    <nav class="nav-links">
-      <a href="#markets">Markets</a>
-      <a href="#projects">Projects</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-    </nav>
   </header>
 
-  <section class="hero hidden" id="hero">
-    <div class="hero-inner">
-      <h2>Interactive Investment Dashboard</h2>
-      <p>Real-time market snapshots, clean visuals, and case studies from my work.</p>
-      <div class="hero-cta">
-        <a class="btn" href="./FA.pdf" target="_blank" rel="noreferrer">Download CV</a>
-        <a class="btn btn-ghost" href="https://www.linkedin.com/in/muhammad-wasif-athar-15a0961b1" target="_blank" rel="noreferrer">LinkedIn</a>
-      </div>
+  <!-- Live ticker under topbar -->
+  <div class="ticker-bar">
+    <div id="ticker" class="ticker-track">
+      <!-- filled by JS -->
+      <span class="muted">Loading live quotes…</span>
     </div>
-  </section>
+  </div>
 
-  <main class="hidden" id="main">
-    <section id="markets" class="card">
-      <div class="card-head">
-        <h3>Live Market Overview</h3>
-        <div class="small muted">Auto-refreshes every 60s</div>
+  <div class="app">
+    <!-- Left nav -->
+    <aside class="sidenav" role="navigation" aria-label="Primary">
+      <button class="nav-item" data-route="personal"><span>Personal</span><kbd>1</kbd></button>
+      <button class="nav-item" data-route="experience"><span>Work Experience</span><kbd>2</kbd></button>
+      <button class="nav-item" data-route="education"><span>Education</span><kbd>3</kbd></button>
+      <button class="nav-item" data-route="projects"><span>Projects</span><kbd>4</kbd></button>
+      <button class="nav-item" data-route="publications"><span>Publications</span><kbd>5</kbd></button>
+      <button class="nav-item" data-route="certificates"><span>Certificates</span><kbd>6</kbd></button>
+      <button class="nav-item" data-route="recommendations"><span>Recommendations</span><kbd>7</kbd></button>
+    </aside>
+
+    <!-- Workspace -->
+    <main id="view" class="workspace" tabindex="-1" aria-live="polite">
+      <!-- JS renders the selected module into this container -->
+    </main>
+  </div>
+
+  <!-- Modal for details -->
+  <div id="modal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="modal-card">
+      <div class="modal-head">
+        <h3 id="modalTitle">Details</h3>
+        <button id="modalClose" class="btn btn-ghost">Close</button>
       </div>
-      <div id="stock-ticker" class="ticker"><div class="muted">Loading live quotes…</div></div>
-    </section>
+      <div id="modalBody" class="modal-body"></div>
+    </div>
+  </div>
 
-    <section id="projects" class="card">
-      <div class="card-head">
-        <h3>Highlighted Projects</h3>
-        <a class="small muted" href="./projects.json" target="_blank" rel="noreferrer">projects.json</a>
-      </div>
-      <div id="projects-grid"></div>
-      <div class="cta-row"><a class="btn btn-ghost" href="./projects.html">Browse all projects →</a></div>
-    </section>
+  <footer class="foot">
+    <span id="status">Ready</span>
+    <span>•</span>
+    <span>© 2025 Muhammad Wasif Athar</span>
+  </footer>
 
-    <section id="about" class="card">
-      <h3>About</h3>
-      <p>I’m a data-driven financial analyst focused on valuation, reporting, and quantitative methods.</p>
-    </section>
-
-    <section id="contact" class="card">
-      <h3>Contact</h3>
-      <p>Email: <a href="mailto:wasifathar@gmail.com">wasifathar@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/muhammad-wasif-athar-15a0961b1" target="_blank" rel="noreferrer">/in/muhammad-wasif-athar-15a0961b1</a></p>
-    </section>
-  </main>
-
-  <footer class="hidden" id="footer"><p>© 2025 Muhammad Wasif Athar.</p></footer>
-
-  <script src="./script.js?v=5" defer></script>
+  <script src="./script.js?v=6" defer></script>
 </body>
 </html>
