@@ -25,17 +25,33 @@ function runIntro() {
     setTimeout(() => {
       intro?.classList.add("hidden");
       welcome?.classList.remove("hidden");
-      welcome.classList.add("fade");
+      welcome?.classList.add("fade");
       requestAnimationFrame(() => {
-        welcome.classList.add("show");
+        welcome?.classList.add("show");
       });
     }, 600);
   });
 
-  // Enter site from welcome card
-  $("#enterSite")?.addEventListener("click", () => {
-    localStorage.setItem("seenIntro","1");
-    showSite();
+  // Enter site from welcome card (fade out welcome, show site)
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest("#enterSite");
+    if (!btn) return;
+
+    localStorage.setItem("seenIntro", "1");
+
+    if (welcome) {
+      welcome.classList.add("fade");
+      welcome.classList.remove("show");
+    }
+
+    setTimeout(() => {
+      intro?.classList.add("hidden");
+      welcome?.classList.add("hidden");
+      $("#siteHeader")?.classList.remove("hidden");
+      $("#hero")?.classList.remove("hidden");
+      $("#main")?.classList.remove("hidden");
+      $("#footer")?.classList.remove("hidden");
+    }, 600);
   });
 
   if (seen) {
@@ -50,9 +66,9 @@ function runIntro() {
     setTimeout(() => {
       intro?.classList.add("hidden");
       welcome?.classList.remove("hidden");
-      welcome.classList.add("fade");
+      welcome?.classList.add("fade");
       requestAnimationFrame(() => {
-        welcome.classList.add("show");
+        welcome?.classList.add("show");
       });
     }, 600);
   }, 3600);
