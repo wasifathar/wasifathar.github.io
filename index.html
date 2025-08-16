@@ -1,79 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Wasif Athar – Fiori Dashboard</title>
-  <meta name="description" content="SAP Fiori–style portfolio by Muhammad Wasif Athar: live markets, projects, experience, and credentials."/>
-  <link rel="icon" type="image/png" href="./wasif-athar-high-resolution-logo.png"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=6">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Muhammad Wasif Athar – Portfolio</title>
+  <link rel="stylesheet" href="styles.css"/>
 </head>
 <body>
-
-  <!-- App Shell -->
-  <header class="topbar">
-    <div class="brand">
-      <img src="./wasif-athar-high-resolution-logo.png" alt="Logo" class="brand-logo">
-      <div class="brand-txt">
-        <div class="brand-title">Wasif Athar</div>
-        <div class="brand-sub">MSc Economics & Finance · CFA L1 · Financial Analyst</div>
-      </div>
+  <!-- Top Bar -->
+  <header id="topbar">
+    <div class="logo">
+      <img src="./wasif-athar-high-resolution-logo.png" alt="Logo"/>
+      <span class="title">Muhammad Wasif Athar</span>
     </div>
-
-    <div class="search-wrap">
-      <input id="globalSearch" class="search" placeholder="Search modules, items… ( / )" aria-label="Search">
-    </div>
-
-    <div class="actions">
-      <a class="btn btn-ghost" href="./FA.pdf" target="_blank" rel="noreferrer">CV</a>
-      <a class="btn btn-ghost" href="https://www.linkedin.com/in/muhammad-wasif-athar-15a0961b1" target="_blank" rel="noreferrer">LinkedIn</a>
-    </div>
+    <div id="ticker"></div>
+    <input id="globalSearch" type="text" placeholder="Search (press /)"/>
   </header>
 
-  <!-- Live ticker under topbar -->
-  <div class="ticker-bar">
-    <div id="ticker" class="ticker-track">
-      <!-- filled by JS -->
-      <span class="muted">Loading live quotes…</span>
-    </div>
-  </div>
+  <!-- Layout -->
+  <div id="layout">
+    <!-- Sidebar -->
+    <nav id="sidebar">
+      <button class="nav-item" data-route="personal">1. Personal Info</button>
+      <button class="nav-item" data-route="experience">2. Work Experience</button>
+      <button class="nav-item" data-route="education">3. Education</button>
+      <button class="nav-item" data-route="projects">4. Projects</button>
+      <button class="nav-item" data-route="publications">5. Publications</button>
+      <button class="nav-item" data-route="certificates">6. Certificates</button>
+      <button class="nav-item" data-route="recommendations">7. Recommendations</button>
+    </nav>
 
-  <div class="app">
-    <!-- Left nav -->
-    <aside class="sidenav" role="navigation" aria-label="Primary">
-      <button class="nav-item" data-route="personal"><span>Personal</span><kbd>1</kbd></button>
-      <button class="nav-item" data-route="experience"><span>Work Experience</span><kbd>2</kbd></button>
-      <button class="nav-item" data-route="education"><span>Education</span><kbd>3</kbd></button>
-      <button class="nav-item" data-route="projects"><span>Projects</span><kbd>4</kbd></button>
-      <button class="nav-item" data-route="publications"><span>Publications</span><kbd>5</kbd></button>
-      <button class="nav-item" data-route="certificates"><span>Certificates</span><kbd>6</kbd></button>
-      <button class="nav-item" data-route="recommendations"><span>Recommendations</span><kbd>7</kbd></button>
-    </aside>
-
-    <!-- Workspace -->
-    <main id="view" class="workspace" tabindex="-1" aria-live="polite">
-      <!-- JS renders the selected module into this container -->
+    <!-- Main View -->
+    <main id="main">
+      <div id="status"></div>
+      <div id="view"></div>
     </main>
   </div>
 
-  <!-- Modal for details -->
-  <div id="modal" class="modal hidden" aria-hidden="true" role="dialog" aria-modal="true">
-    <div class="modal-card">
-      <div class="modal-head">
-        <h3 id="modalTitle">Details</h3>
-        <button id="modalClose" class="btn btn-ghost">Close</button>
-      </div>
-      <div id="modalBody" class="modal-body"></div>
+  <!-- Footer -->
+  <footer id="footer">
+    <span>© 2025 Muhammad Wasif Athar</span>
+    <span>Updated: <span id="lastUpdate"></span></span>
+  </footer>
+
+  <!-- Modal -->
+  <div id="modal" class="hidden">
+    <div class="modal-content">
+      <button id="modalClose" aria-label="Close">&times;</button>
+      <h3 id="modalTitle"></h3>
+      <div id="modalBody"></div>
     </div>
   </div>
 
-  <footer class="foot">
-    <span id="status">Ready</span>
-    <span>•</span>
-    <span>© 2025 Muhammad Wasif Athar</span>
-  </footer>
-
-  <script src="./script.js?v=6" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
