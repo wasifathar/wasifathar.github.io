@@ -1,57 +1,85 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Muhammad Wasif Athar – Portfolio</title>
-  <link rel="stylesheet" href="styles.css"/>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Muhammad Wasif Athar — Portfolio</title>
+  <meta name="description" content="Math, Markets, and a Bit of Magic."/>
+  <link rel="icon" href="./wasif-athar-high-resolution-logo.png"/>
+  <link rel="stylesheet" href="./styles.css?v=1"/>
 </head>
 <body>
-  <!-- Top Bar -->
-  <header id="topbar">
-    <div class="logo">
-      <img src="./wasif-athar-high-resolution-logo.png" alt="Logo"/>
-      <span class="title">Muhammad Wasif Athar</span>
-    </div>
-    <div id="ticker"></div>
-    <input id="globalSearch" type="text" placeholder="Search (press /)"/>
+
+  <!-- BACKGROUND IMAGE -->
+  <div class="bg-photo" aria-hidden="true"></div>
+
+  <!-- HONEYCOMB CANVAS -->
+  <canvas id="honeycomb" aria-hidden="true"></canvas>
+
+  <!-- CONTENT -->
+  <header class="top">
+    <img class="brand" src="./wasif-athar-high-resolution-logo.png" alt="WA logo"/>
+    <nav class="nav">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="./FA.pdf" target="_blank" rel="noreferrer">CV</a>
+    </nav>
   </header>
 
-  <!-- Layout -->
-  <div id="layout">
-    <!-- Sidebar -->
-    <nav id="sidebar">
-      <button class="nav-item" data-route="personal">1. Personal Info</button>
-      <button class="nav-item" data-route="experience">2. Work Experience</button>
-      <button class="nav-item" data-route="education">3. Education</button>
-      <button class="nav-item" data-route="projects">4. Projects</button>
-      <button class="nav-item" data-route="publications">5. Publications</button>
-      <button class="nav-item" data-route="certificates">6. Certificates</button>
-      <button class="nav-item" data-route="recommendations">7. Recommendations</button>
-    </nav>
+  <section class="hero">
+    <h1>Muhammad Wasif Athar</h1>
+    <p class="tagline">
+      Math, Markets, and a Bit of Magic<br/>
+      <span class="sub">MSc Economics &amp; Finance · CFA Level I Candidate · Financial Analyst</span>
+    </p>
+    <a class="cta" href="#projects">View My Work</a>
+  </section>
 
-    <!-- Main View -->
-    <main id="main">
-      <div id="status"></div>
-      <div id="view"></div>
-    </main>
-  </div>
+  <main class="main">
+    <section id="about" class="card">
+      <h2>About</h2>
+      <p>I’m a data-driven finance analyst who turns messy data into decision-ready insight —
+        valuation models, reporting automation, and ML-assisted analytics.</p>
+    </section>
 
-  <!-- Footer -->
-  <footer id="footer">
-    <span>© 2025 Muhammad Wasif Athar</span>
-    <span>Updated: <span id="lastUpdate"></span></span>
-  </footer>
+    <section id="experience" class="card">
+      <h2>Experience</h2>
+      <ul>
+        <li><strong>AI-Driven Finance Intern</strong> — Pricing insights & reporting automation.</li>
+        <li><strong>Help Desk Operator (Logistics)</strong> — Coordinated vaccine shipments across 5 countries.</li>
+        <li><strong>Junior Accountant</strong> — AP/AR, GL reconciliations, quarterly reports.</li>
+      </ul>
+    </section>
 
-  <!-- Modal -->
-  <div id="modal" class="hidden">
-    <div class="modal-content">
-      <button id="modalClose" aria-label="Close">&times;</button>
-      <h3 id="modalTitle"></h3>
-      <div id="modalBody"></div>
+    <section id="projects" class="card">
+      <h2>Highlighted Projects</h2>
+      <ul>
+        <li>L’Oréal 5-Year Forecast — Integrated statements + DCF triangulation.</li>
+        <li>AI-Driven Pricing — Automated pricing insights & reporting.</li>
+        <li>Bocconi — PE & VC notes and casework.</li>
+      </ul>
+    </section>
+  </main>
+
+  <!-- FLOATING CHATBOT (drop your provider snippet inside #chatbot-root) -->
+  <div id="chatbot">
+    <button id="chat-toggle" aria-label="Open chat">🗨️</button>
+    <div id="chat-panel" hidden>
+      <div class="chat-head">
+        <strong>Wasif • AI Assistant</strong>
+        <button id="chat-close" aria-label="Close chat">✕</button>
+      </div>
+      <div id="chatbot-root" class="chat-body">
+        <!-- Paste your provider widget here (e.g., Chatbase/Botpress/Tidio).
+             Example: Chatbase
+             <script src="https://www.chatbase.co/embed.min.js" data-chatbot-id="YOUR_ID" defer></script>
+        -->
+        <p class="muted">Plug in your AI widget here (Chatbase, Botpress, Tidio, etc.).</p>
+      </div>
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="./script.js?v=1" defer></script>
 </body>
 </html>
