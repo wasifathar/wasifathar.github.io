@@ -1,62 +1,92 @@
+/* —— Base ——————————————————————————————————————— */
 :root{
-  --ink:#f8fbff; --muted:#cfe0ffcc; --card:#0b1226cc; --accent:#59d0ff; --accent2:#33b0ff;
+  --bg:#0a0f1a;
+  --ink:#eaf2ff;
+  --muted:#b3c2da;
+  --line:#1b2536;
+  --card:#0f1624cc;            /* glass card */
+  --accent:#46b6ff;
+  --accent-2:#2fa0ec;
+  --shadow:0 18px 50px rgba(0,0,0,.35);
 }
+
 *{box-sizing:border-box}
-html,body{margin:0;height:100%;font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:#020814}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif}
+a{color:var(--accent);text-decoration:none}
+a:hover{color:#fff}
+.muted{color:var(--muted)}
+.hidden{display:none}
 
-/* Background photo (your Milan image) */
+/* —— Background ———————————————————————————————— */
 .bg-photo{
-  position:fixed; inset:0; z-index:-2;
+  position:fixed; inset:0; z-index:-3;
   background:url("./background.jpg") center/cover no-repeat fixed;
-  filter:brightness(.65) saturate(1.1);
+  filter:brightness(.58) saturate(1.05);
+}
+.bg-mask{                        /* keeps content readable over photo */
+  position:fixed; inset:0; z-index:-2;
+  background:
+    linear-gradient(180deg, rgba(5,10,20,.55) 0%, rgba(5,10,20,.75) 40%, rgba(5,10,20,.92) 100%),
+    radial-gradient(1100px 600px at 8% 0%, rgba(35,85,140,.35), transparent 60%),
+    radial-gradient(1100px 600px at 92% 0%, rgba(18,116,170,.30), transparent 60%);
 }
 
-/* Honeycomb canvas above photo */
-#honeycomb{position:fixed; inset:0; z-index:-1}
+/* honeycomb sits above mask, below content */
+#honeycomb{
+  position:fixed; inset:0; z-index:-1;
+  opacity:.28;                       /* MUCH calmer */
+  mix-blend-mode:screen;
+  pointer-events:none;
+}
 
-/* Top bar */
+/* —— Top bar ———————————————————————————————————— */
 .top{
-  position:fixed; inset-inline:0; top:0; z-index:2;
+  position:sticky; top:0; z-index:5;
   display:flex; align-items:center; justify-content:space-between;
-  padding:.6rem 1rem; backdrop-filter:blur(8px);
-  background:linear-gradient(90deg,#030a18cc,#022234cc);
-  border-bottom:1px solid #ffffff22;
+  height:64px; padding:0 16px;
+  background:rgba(10,15,26,.55);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
 }
-.brand{height:36px; border-radius:8px; box-shadow:0 4px 18px #0008}
-.nav a{color:var(--ink);text-decoration:none;margin-left:1rem;font-weight:600;opacity:.9}
-.nav a:hover{opacity:1;color:#fff}
+.brand{height:36px; border-radius:8px; box-shadow:0 6px 18px rgba(0,0,0,.45)}
+.nav a{margin-left:18px; font-weight:600; color:#dfe8ff; opacity:.9}
+.nav a:hover{opacity:1}
 
-/* Hero */
+/* —— Hero —————————————————————————————————————— */
 .hero{
-  min-height:78vh; display:grid; place-items:center; text-align:center; padding-top:56px;
+  min-height:78vh; display:grid; place-items:center; text-align:center;
+  padding-block:64px 20px;
 }
-.hero h1{font-size:clamp(28px,6vw,64px); margin:0 0 .5rem}
-.tagline{font-size:clamp(14px,2.3vw,20px); color:var(--muted); margin:0 0 1.2rem}
-.sub{opacity:.9}
+.hero h1{font-size:clamp(32px,6vw,64px); margin:0 0 .5rem}
+.tagline{font-size:clamp(14px,2vw,18px); color:var(--muted); margin:0 0 1.2rem}
 .cta{
-  display:inline-block; padding:.8rem 1.2rem; border-radius:999px; font-weight:700;
-  background:var(--accent); color:#012131; text-decoration:none;
-  box-shadow:0 10px 30px #00b3ff55; transition:.2s transform, .2s background;
+  display:inline-block; padding:.85rem 1.25rem; border-radius:999px; font-weight:700;
+  background:var(--accent); color:#062231; box-shadow:0 14px 40px rgba(70,182,255,.4);
 }
-.cta:hover{background:var(--accent2); transform:translateY(-2px)}
+.cta:hover{background:var(--accent-2)}
 
-/* Main content */
-.main{max-width:1100px;margin:-40px auto 80px;padding:0 14px;display:grid;gap:14px}
-.card{background:var(--card); border:1px solid #ffffff26; border-radius:16px; padding:16px; box-shadow:0 14px 36px #0008}
-.card h2{margin:0 0 .6rem}
+/* —— Main ——————————————————————————————————————— */
+.main{
+  max-width:1100px; margin:-36px auto 80px; padding:0 18px;
+  display:grid; gap:18px;
+}
+.card{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:16px; padding:18px;
+  box-shadow:var(--shadow);
+}
+.card h2{margin:.2rem 0 .75rem; font-size:1.25rem}
 
-/* Chatbot */
-#chatbot{position:fixed; right:18px; bottom:18px; z-index:3}
+/* tidy list style */
+.card ul{margin:.2rem 0 .2rem 1rem}
+.card li{margin:.3rem 0}
+
+/* —— Chatbot ———————————————————————————————————— */
+#chatbot{position:fixed; right:18px; bottom:18px; z-index:6}
 #chat-toggle{
-  width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;
-  background:var(--accent); color:#012131; font-size:22px; box-shadow:0 10px 26px #00b3ff66
+  width:56px;height:56px;border-radius:50%;border:0;cursor:pointer;
+  background:var(--accent); color:#062231; font-size:22px; box-shadow:0 16px 40px rgba(70,182,255,.45)
 }
 #chat-panel{
-  position:fixed; right:18px; bottom:78px; width:min(380px,90vw); height:60vh;
-  background:#061226f2; border:1px solid #2c4166; border-radius:14px;
-  box-shadow:0 20px 80px #000a; display:flex; flex-direction:column; overflow:hidden
-}
-.chat-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid #182642;background:#0a1731}
-.chat-body{flex:1; overflow:auto; padding:10px}
-.muted{color:#cfe0ffaa}
-#chat-close{background:transparent;border:0;color:#cfe0ff;cursor:pointer;font-size:18px}
+  position:fixed; right:18px; bottom:86px; width:min(420
