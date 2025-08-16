@@ -2,12 +2,27 @@ const SYMBOLS = ["AAPL","MSFT","GOOG","AMZN","TSLA","JPM"];
 const $ = (q) => document.querySelector(q);
 const safeJSON = (t) => { try { return JSON.parse(t); } catch { return null; } };
 
-// --- Show site ---
-function showSite() {
-  $("#intro")?.classList.add("hidden");
-  $("#welcome")?.classList.add("hidden");
+// ---------- Helpers ----------
+function fadeOutAndHide(el, duration = 600) {
+  if (!el) return Promise.resolve();
+  el.classList.add("fade");
+  el.style.opacity = "0";
+  el.style.pointerEvents = "none"; // <-- critical: stop intercepting clicks during fade
+  return new Promise((res) => setTimeout(() => {
+    el.classList.add("hidden");
+    res();
+  }, duration));
+}
 
-  // fade in hero/nav/main
+function fadeIn(el) {
+  if (!el) return;
+  el.classList.remove("hidden");
+  el.classList.add("fade");
+  el.style.pointerEvents = ""; // allow clicks
+  requestAnimationFrame(() => el.classList.add("show"));
+}
+
+function showSite() {
   ["#siteHeader", "#hero", "#main", "#footer"].forEach(sel => {
     const el = $(sel);
     if (el) {
@@ -18,51 +33,44 @@ function showSite() {
   });
 }
 
-// --- Show welcome card ---
-function showWelcome() {
-  $("#intro")?.classList.add("hidden");
-  const welcome = $("#welcome");
-  welcome?.classList.remove("hidden");
-  welcome?.classList.add("fade");
-  requestAnimationFrame(() => welcome?.classList.add("show"));
-}
-
-// --- Run intro sequence ---
+// ---------- Opening sequence ----------
 function runIntro() {
+  const intro = $("#intro");
+  const welcome = $("#welcome");
   const seen = localStorage.getItem("seenIntro") === "1";
 
-  // Skip → show welcome
-  $("#skipIntro")?.addEventListener("click", () => {
+  // Skip → fade intro, then show welcome
+  $("#skipIntro")?.addEventListener("click", async () => {
     localStorage.setItem("seenIntro", "1");
-    $("#intro")?.classList.add("fade");
-    $("#intro").style.opacity = "0";
-    setTimeout(showWelcome, 600);
+    await fadeOutAndHide(intro);
+    fadeIn(welcome);
   });
 
-  // Enter → show site
-  document.addEventListener("click", (e) => {
-    if (e.target.closest("#enterSite")) {
-      localStorage.setItem("seenIntro", "1");
-      const welcome = $("#welcome");
-      welcome?.classList.remove("show");
-      setTimeout(showSite, 600);
-    }
-  });
+  // Enter → fade welcome, then show site
+  document.addEventListener("click", async (e) => {
+    const btn = e.target.closest("#enterSite");
+    if (!btn) return;
+    localStorage.setItem("seenIntro", "1");
+    await fadeOutAndHide(welcome);
+    showSite();
+  }, { passive: true });
 
   if (seen) {
+    // Skip intro/welcome entirely
+    intro?.classList.add("hidden");
+    welcome?.classList.add("hidden");
     showSite();
     return;
   }
 
-  // Auto finish intro
-  setTimeout(() => {
-    $("#intro")?.classList.add("fade");
-    $("#intro").style.opacity = "0";
-    setTimeout(showWelcome, 600);
+  // Auto progress intro → welcome
+  setTimeout(async () => {
+    await fadeOutAndHide(intro);
+    fadeIn(welcome);
   }, 3600);
 }
 
-// --- Stock quotes ---
+// ---------- Live stock quotes ----------
 async function fetchStooq(symbols) {
   const map = (s) => s.toLowerCase().replace(/[.=]/g, "");
   const url = `https://stooq.com/q/l/?s=${symbols.map(map).join(",")}&f=sd2t2ohlcv&h&e=csv`;
@@ -82,6 +90,7 @@ async function fetchStooq(symbols) {
     };
   });
 }
+
 async function fetchYahoo(symbols) {
   const y = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols.join(",")}`;
   const tries = [
@@ -100,17 +109,19 @@ async function fetchYahoo(symbols) {
   }
   return [];
 }
+
 async function fetchQuotes(symbols){
   try { const s = await fetchStooq(symbols); if (s?.length) return s; } catch {}
   try { const y = await fetchYahoo(symbols); if (y?.length) return y; } catch {}
   return [];
 }
+
 async function renderStockTicker() {
   const el = $("#stock-ticker"); if (!el) return;
   el.innerHTML = `<div class="muted">Loading live quotes…</div>`;
   const list = await fetchQuotes(SYMBOLS);
   if (!list.length) {
-    el.innerHTML = `<div class="muted">Couldn’t load quotes. Try refresh.</div>`;
+    el.innerHTML = `<div class="muted">Couldn’t load quotes (provider/CORS). Try refresh.</div>`;
     return;
   }
   el.innerHTML = list.map(s=>{
@@ -127,7 +138,7 @@ async function renderStockTicker() {
   }).join("");
 }
 
-// --- Projects ---
+// ---------- Projects ----------
 async function loadProjects() {
   const grid = document.getElementById("projects-grid");
   if (!grid) return;
@@ -148,7 +159,7 @@ async function loadProjects() {
   }
 }
 
-// --- Init ---
+// ---------- Init ----------
 document.addEventListener("DOMContentLoaded", () => {
   runIntro();
   const boot = () => { renderStockTicker(); loadProjects(); setInterval(renderStockTicker, 60000); };
