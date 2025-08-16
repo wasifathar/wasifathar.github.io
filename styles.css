@@ -89,4 +89,18 @@ a:hover{color:#fff}
   background:var(--accent); color:#062231; font-size:22px; box-shadow:0 16px 40px rgba(70,182,255,.45)
 }
 #chat-panel{
-  position:fixed; right:18px; bottom:86px; width:min(420
+  position:fixed; right:18px; bottom:86px; width:min(420px,92vw); height:min(70vh,720px);
+  background:rgba(12,19,33,.96); border:1px solid var(--line); border-radius:14px;
+  box-shadow:0 30px 90px rgba(0,0,0,.55); display:flex; flex-direction:column; overflow:hidden
+}
+.chat-head{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-bottom:1px solid var(--line);background:rgba(12,19,33,.9)}
+.chat-body{flex:1; overflow:auto; padding:12px}
+#chat-close{background:transparent;border:0;color:#dfe8ff;cursor:pointer;font-size:18px}
+
+/* —— Responsive / Reduced motion —————————————— */
+@media (max-width:900px){
+  .hero{min-height:62vh}
+}
+@media (prefers-reduced-motion: reduce){
+  #honeycomb{opacity:.22}
+}
