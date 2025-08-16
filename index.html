@@ -1,23 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Muhammad Wasif Athar – Interactive Finance Dashboard</title>
-  <meta name="description" content="Portfolio of Muhammad Wasif Athar — real-time market data, projects, and valuation work." />
-  <link rel="icon" type="image/png" href="./wasif-athar-high-resolution-logo.png" />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Muhammad Wasif Athar – Portfolio</title>
+  <meta name="description" content="Math, Markets, and a Bit of Magic — interactive portfolio by Muhammad Wasif Athar."/>
+  <link rel="icon" type="image/png" href="./wasif-athar-high-resolution-logo.png"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./styles.css?v=3">
+  <link rel="stylesheet" href="./styles.css?v=4">
 </head>
 <body>
-  <!-- Header -->
-  <header class="app-header">
+
+  <!-- 0) Cinematic intro (like Canva) -->
+  <div id="intro" class="intro">
+    <div class="intro-layer intro-1"><span>Math</span></div>
+    <div class="intro-layer intro-2"><span>Markets</span></div>
+    <div class="intro-layer intro-3"><span>…and a bit of Magic</span></div>
+    <button id="skipIntro" class="btn btn-ghost intro-skip" aria-label="Skip intro">Skip ↦</button>
+  </div>
+
+  <!-- 1) Welcome card with logo -->
+  <section id="welcome" class="welcome hidden">
+    <img src="./wasif-athar-high-resolution-logo.png" alt="Logo" class="welcome-logo"/>
+    <div class="welcome-text">
+      <h1>Welcome</h1>
+      <p>Muhammad Wasif Athar</p>
+      <p class="muted">MSc Economics &amp; Finance · CFA Level I Candidate · Financial Analyst</p>
+    </div>
+    <button id="enterSite" class="btn">Enter</button>
+  </section>
+
+  <!-- 2) Main site -->
+  <header class="app-header hidden" id="siteHeader">
     <div class="header-content">
-      <img class="logo" src="./wasif-athar-high-resolution-logo.png" alt="Logo" />
+      <img class="logo" src="./wasif-athar-high-resolution-logo.png" alt="Logo"/>
       <div>
         <h1 class="title">Muhammad Wasif Athar</h1>
-        <p class="subtitle">
-          Math, Markets, and a Bit of Magic<br/>
+        <p class="subtitle">Math, Markets, and a Bit of Magic<br>
           <span class="subline">MSc Economics &amp; Finance · CFA Level I Candidate · Financial Analyst</span>
         </p>
       </div>
@@ -25,53 +44,13 @@
     <nav class="nav-links">
       <a href="#markets">Markets</a>
       <a href="#projects">Projects</a>
+      <a href="#about">About</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
 
-  <!-- Hero -->
-  <section class="hero">
+  <section class="hero hidden" id="hero">
     <div class="hero-inner">
       <h2>Interactive Investment Dashboard</h2>
       <p>Real-time market snapshots, clean visuals, and case studies from my work.</p>
-      <div class="hero-cta">
-        <a class="btn" href="./FA.pdf" target="_blank" rel="noreferrer">Download CV</a>
-        <a class="btn btn-ghost" href="https://www.linkedin.com/in/muhammad-wasif-athar-15a0961b1" target="_blank" rel="noreferrer">LinkedIn</a>
-      </div>
-    </div>
-  </section>
-
-  <main>
-    <!-- Markets -->
-    <section id="markets" class="card">
-      <div class="card-head">
-        <h3>Live Market Overview</h3>
-        <div class="small muted">Auto-refreshes every 60s</div>
-      </div>
-      <div id="stock-ticker" class="ticker">
-        <div class="muted">Loading live quotes…</div>
-      </div>
-    </section>
-
-    <!-- Projects -->
-    <section id="projects" class="card">
-      <div class="card-head">
-        <h3>Highlighted Projects</h3>
-        <a class="small muted" href="./projects.json" target="_blank" rel="noreferrer">projects.json</a>
-      </div>
-      <div id="projects-grid"></div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="card">
-      <h3>Contact</h3>
-      <p>Email: <a href="mailto:wasifathar@gmail.com">wasifathar@gmail.com</a></p>
-      <p>LinkedIn: <a href="https://www.linkedin.com/in/muhammad-wasif-athar-15a0961b1" target="_blank" rel="noreferrer">/in/muhammad-wasif-athar-15a0961b1</a></p>
-    </section>
-  </main>
-
-  <footer><p>© 2025 Muhammad Wasif Athar. All rights reserved.</p></footer>
-
-  <script src="./script.js?v=3" defer></script>
-</body>
-</html>
+      <
