@@ -1,57 +1,52 @@
 const SYMBOLS = ["AAPL","MSFT","GOOG","AMZN","TSLA","JPM"];
-const $ = (q)=>document.querySelector(q);
-const safeJSON = (t)=>{ try { return JSON.parse(t); } catch { return null; } };
+const $ = (q) => document.querySelector(q);
+const safeJSON = (t) => { try { return JSON.parse(t); } catch { return null; } };
 
-// --- Opening sequence ---
-function runIntro() {
-  const intro = $("#intro");
+// --- Show site ---
+function showSite() {
+  $("#intro")?.classList.add("hidden");
+  $("#welcome")?.classList.add("hidden");
+
+  // fade in hero/nav/main
+  ["#siteHeader", "#hero", "#main", "#footer"].forEach(sel => {
+    const el = $(sel);
+    if (el) {
+      el.classList.remove("hidden");
+      el.classList.add("fade");
+      requestAnimationFrame(() => el.classList.add("show"));
+    }
+  });
+}
+
+// --- Show welcome card ---
+function showWelcome() {
+  $("#intro")?.classList.add("hidden");
   const welcome = $("#welcome");
+  welcome?.classList.remove("hidden");
+  welcome?.classList.add("fade");
+  requestAnimationFrame(() => welcome?.classList.add("show"));
+}
+
+// --- Run intro sequence ---
+function runIntro() {
   const seen = localStorage.getItem("seenIntro") === "1";
 
-  const showSite = () => {
-    intro?.classList.add("hidden");
-    welcome?.classList.add("hidden");
-    $("#siteHeader")?.classList.remove("hidden");
-    $("#hero")?.classList.remove("hidden");
-    $("#main")?.classList.remove("hidden");
-    $("#footer")?.classList.remove("hidden");
-  };
-
-  // Skip intro → fade into welcome card
+  // Skip → show welcome
   $("#skipIntro")?.addEventListener("click", () => {
     localStorage.setItem("seenIntro", "1");
-    intro?.classList.add("fade");
-    intro.style.opacity = "0";
-    setTimeout(() => {
-      intro?.classList.add("hidden");
-      welcome?.classList.remove("hidden");
-      welcome?.classList.add("fade");
-      requestAnimationFrame(() => {
-        welcome?.classList.add("show");
-      });
-    }, 600);
+    $("#intro")?.classList.add("fade");
+    $("#intro").style.opacity = "0";
+    setTimeout(showWelcome, 600);
   });
 
-  // Enter site from welcome card (fade out welcome, show site)
+  // Enter → show site
   document.addEventListener("click", (e) => {
-    const btn = e.target.closest("#enterSite");
-    if (!btn) return;
-
-    localStorage.setItem("seenIntro", "1");
-
-    if (welcome) {
-      welcome.classList.add("fade");
-      welcome.classList.remove("show");
+    if (e.target.closest("#enterSite")) {
+      localStorage.setItem("seenIntro", "1");
+      const welcome = $("#welcome");
+      welcome?.classList.remove("show");
+      setTimeout(showSite, 600);
     }
-
-    setTimeout(() => {
-      intro?.classList.add("hidden");
-      welcome?.classList.add("hidden");
-      $("#siteHeader")?.classList.remove("hidden");
-      $("#hero")?.classList.remove("hidden");
-      $("#main")?.classList.remove("hidden");
-      $("#footer")?.classList.remove("hidden");
-    }, 600);
   });
 
   if (seen) {
@@ -59,22 +54,15 @@ function runIntro() {
     return;
   }
 
-  // Auto move from intro to welcome after delay
+  // Auto finish intro
   setTimeout(() => {
-    intro?.classList.add("fade");
-    intro.style.opacity = "0";
-    setTimeout(() => {
-      intro?.classList.add("hidden");
-      welcome?.classList.remove("hidden");
-      welcome?.classList.add("fade");
-      requestAnimationFrame(() => {
-        welcome?.classList.add("show");
-      });
-    }, 600);
+    $("#intro")?.classList.add("fade");
+    $("#intro").style.opacity = "0";
+    setTimeout(showWelcome, 600);
   }, 3600);
 }
 
-// --- Quotes ---
+// --- Stock quotes ---
 async function fetchStooq(symbols) {
   const map = (s) => s.toLowerCase().replace(/[.=]/g, "");
   const url = `https://stooq.com/q/l/?s=${symbols.map(map).join(",")}&f=sd2t2ohlcv&h&e=csv`;
