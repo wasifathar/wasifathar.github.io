@@ -1,4 +1,3 @@
-// Intro → Welcome → Site flow + Live quotes + Projects
 const SYMBOLS = ["AAPL","MSFT","GOOG","AMZN","TSLA","JPM"];
 const $ = (q)=>document.querySelector(q);
 const safeJSON = (t)=>{ try { return JSON.parse(t); } catch { return null; } };
@@ -18,30 +17,48 @@ function runIntro() {
     $("#footer")?.classList.remove("hidden");
   };
 
-  // Skip logic
+  // Skip intro → fade into welcome card
   $("#skipIntro")?.addEventListener("click", () => {
-    localStorage.setItem("seenIntro","1");
-    showSite();
+    localStorage.setItem("seenIntro", "1");
+    intro?.classList.add("fade");
+    intro.style.opacity = "0";
+    setTimeout(() => {
+      intro?.classList.add("hidden");
+      welcome?.classList.remove("hidden");
+      welcome.classList.add("fade");
+      requestAnimationFrame(() => {
+        welcome.classList.add("show");
+      });
+    }, 600);
   });
+
+  // Enter site from welcome card
   $("#enterSite")?.addEventListener("click", () => {
     localStorage.setItem("seenIntro","1");
     showSite();
   });
 
   if (seen) {
-    // Skip straight to site
     showSite();
     return;
   }
 
-  // After last line fades, show welcome card
+  // Auto move from intro to welcome after delay
   setTimeout(() => {
-    intro?.classList.add("hidden");
-    welcome?.classList.remove("hidden");
-  }, 3600); // matches CSS timings
+    intro?.classList.add("fade");
+    intro.style.opacity = "0";
+    setTimeout(() => {
+      intro?.classList.add("hidden");
+      welcome?.classList.remove("hidden");
+      welcome.classList.add("fade");
+      requestAnimationFrame(() => {
+        welcome.classList.add("show");
+      });
+    }, 600);
+  }, 3600);
 }
 
-// --- Quotes: Stooq → Yahoo mirrors fallback ---
+// --- Quotes ---
 async function fetchStooq(symbols) {
   const map = (s) => s.toLowerCase().replace(/[.=]/g, "");
   const url = `https://stooq.com/q/l/?s=${symbols.map(map).join(",")}&f=sd2t2ohlcv&h&e=csv`;
@@ -89,7 +106,7 @@ async function renderStockTicker() {
   el.innerHTML = `<div class="muted">Loading live quotes…</div>`;
   const list = await fetchQuotes(SYMBOLS);
   if (!list.length) {
-    el.innerHTML = `<div class="muted">Couldn’t load quotes (provider/CORS). Try refresh.</div>`;
+    el.innerHTML = `<div class="muted">Couldn’t load quotes. Try refresh.</div>`;
     return;
   }
   el.innerHTML = list.map(s=>{
@@ -106,7 +123,7 @@ async function renderStockTicker() {
   }).join("");
 }
 
-// --- Projects from JSON ---
+// --- Projects ---
 async function loadProjects() {
   const grid = document.getElementById("projects-grid");
   if (!grid) return;
@@ -116,22 +133,21 @@ async function loadProjects() {
     const items = JSON.parse(await r.text());
     grid.innerHTML = items.map(p => `
       <div class="project-card">
-        <h4 style="margin:.2rem 0 .4rem;font-size:1.06rem">${p.title}</h4>
-        <p class="muted" style="margin:.25rem 0 .6rem">${p.description ?? ""}</p>
+        <h4>${p.title}</h4>
+        <p class="muted">${p.description ?? ""}</p>
         <div class="tags">${(p.tags ?? []).map(t=>`<span class="tag">${t}</span>`).join("")}</div>
-        ${p.link ? `<a class="btn btn-ghost" style="margin-top:.7rem;display:inline-block" target="_blank" rel="noreferrer" href="${p.link}">Open</a>` : ""}
+        ${p.link ? `<a class="btn btn-ghost" target="_blank" rel="noreferrer" href="${p.link}">Open</a>` : ""}
       </div>
     `).join("");
   } catch (e) {
-    grid.innerHTML = `<div class="muted">Couldn’t read <code>./projects.json</code>.</div>`;
+    grid.innerHTML = `<div class="muted">Couldn’t read ./projects.json.</div>`;
   }
 }
 
 // --- Init ---
 document.addEventListener("DOMContentLoaded", () => {
   runIntro();
-  // When site is visible, kick off data loads (slight delay if intro runs)
   const boot = () => { renderStockTicker(); loadProjects(); setInterval(renderStockTicker, 60000); };
   if (localStorage.getItem("seenIntro")==="1") boot();
-  else setTimeout(boot, 3800); // after intro→welcome timing
+  else setTimeout(boot, 3800);
 });
